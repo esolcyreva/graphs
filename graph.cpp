@@ -1,5 +1,6 @@
 #include "graph.h"
 #include <queue>
+#include <vector>
 
 using namespace std;
 
@@ -9,9 +10,12 @@ Graph::Graph(int v)
     adj = new list<int>[v];
 }
 
-void Graph::addEdge(int source, int dest)
+void Graph::addEdge(int source, int dest, bool directed)
 {
     adj[source].push_back(dest);
+    if (!directed) {
+        adj[dest].push_back(source);
+    }
 }
 
 void Graph::performDFS(int source, bool visited[]) {
@@ -95,12 +99,59 @@ bool Graph::checkCyclic()
     return false;
 }
 
-void createGenericGraph(Graph g, bool cyclic) {
-    g.addEdge(0, 1);
-    g.addEdge(0, 2);
-    g.addEdge(1, 2);
+void createGenericGraph(Graph g, bool cyclic, bool directed) {
+    g.addEdge(0, 1, directed);
+    g.addEdge(0, 2, directed);
     if (cyclic) {
-        g.addEdge(2, 0);
+        g.addEdge(1, 2, directed);
+        g.addEdge(2, 0, directed);
     }
-    g.addEdge(2, 3);
+    g.addEdge(2, 3, directed);
 }
+
+
+void Graph::topologicalSort()
+{
+    vector<int> deg(vertices,0);
+    queue<int> vqueue;
+    list<int> order;
+    int count = 0;
+    list<int>::iterator it;
+    for (int v=0; v<vertices; v++) {
+        list<int>::iterator i;
+        for(i=adj[v].begin(); i!=adj[v].end(); ++i) {
+            deg[*i]++;
+        }
+    }
+    for (int v=0; v<vertices; v++) {
+        if (!deg[v]) {
+            vqueue.push(v);
+        }
+    }
+
+    while(!vqueue.empty())
+    {
+        int v = vqueue.front();
+        list<int>::iterator i;
+        vqueue.pop();
+        order.push_back(v);
+        cout<<"Pushing = "<<v<<endl;
+        for(i=adj[v].begin(); i!=adj[v].end(); ++i) {
+            deg[*i]--;
+            if (!deg[*i]) {
+                vqueue.push(*i);
+            }
+        }
+        count++;
+    }
+    cout<<"Topological Sort"<<endl;
+    if (count!=vertices) {
+        cout<<"There is a cycle in the graph"<<endl;
+    }
+    for (it=order.begin(); it!=order.end(); ++it) {
+        cout<<*it<<"\t";
+    }
+    cout<<endl;
+}
+
+

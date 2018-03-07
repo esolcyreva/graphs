@@ -16,7 +16,7 @@ using namespace std;
 int main()
 {
     Graph g(4);
-    createGenericGraph(g, true);
+    createGenericGraph(g, true, true);
     cout<<"DFS starting with node 2"<<endl;
     g.DFS(2);
     cout<<endl<<"BFS starting with node 2"<<endl;

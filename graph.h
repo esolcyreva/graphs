@@ -10,7 +10,7 @@ class Graph {
 public:
     Graph(int v);
 
-    void addEdge(int start, int end);
+    void addEdge(int start, int end, bool directed);
 
     void BFS(int source);
 
@@ -19,6 +19,8 @@ public:
     void performDFS(int source, bool visited[]);
 
     bool checkCyclic();
+
+    void topologicalSort();
 };
 
-void createGenericGraph(Graph, bool);
+void createGenericGraph(Graph, bool, bool);

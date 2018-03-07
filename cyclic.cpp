@@ -8,8 +8,8 @@ int main()
 {
     Graph g(4);
     Graph h(4);
-    createGenericGraph(g, true);
-    createGenericGraph(g, false);
+    createGenericGraph(g, true, true);
+    createGenericGraph(g, false, true);
     cout<<"Checking if Graph g is cyclic"<<endl;
     if (g.checkCyclic()) {
         cout<<"Graph g is cyclic"<<endl;
