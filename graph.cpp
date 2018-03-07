@@ -154,4 +154,23 @@ void Graph::topologicalSort()
     cout<<endl;
 }
 
-
+void Graph::levelOrder(int source)
+{
+    queue<int> q1;
+    queue<int> q2;
+    q1.push(source);
+    while (!q1.empty()) {
+        list<int>::iterator it;
+        int v = q1.front();
+        cout<<v<<"\t";
+        q1.pop();
+        for (it=adj[v].begin(); it!=adj[v].end(); ++it)
+        {
+            q2.push(*it);
+        }
+        if (q1.empty()) {
+            cout<<endl;
+            swap(q1, q2);
+        }
+    }
+}
