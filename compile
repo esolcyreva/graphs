@@ -1,1 +1,1 @@
-g++ graph.h  graph.cpp $1 -o solution
+g++ graph.cpp graph.h  $1 -o solution

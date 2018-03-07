@@ -5,6 +5,7 @@ using namespace std;
 class Graph {
     int vertices;
     list<int> *adj;
+    bool isCyclic(int source, bool visited[], bool recStack[]);
 
 public:
     Graph(int v);
@@ -17,6 +18,7 @@ public:
 
     void performDFS(int source, bool visited[]);
 
+    bool checkCyclic();
 };
 
 void createGenericGraph(Graph, bool);

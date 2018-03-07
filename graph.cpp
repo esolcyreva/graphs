@@ -62,6 +62,39 @@ void Graph::BFS(int source) {
     cout<<endl;
 }
 
+bool Graph::isCyclic(int source, bool visited[], bool recStack[]) 
+{
+    list<int>::iterator i;
+    visited[source] = true;
+    recStack[source] = true;
+    for(i=adj[source].begin(); i!=adj[source].end(); ++i) {
+        if (!visited[*i] && isCyclic(*i, visited, recStack)) {
+            return true;
+        } 
+        if (recStack[*i]) {
+            return true;
+        }
+    }
+    recStack[source] = false;
+    return false;
+}
+
+bool Graph::checkCyclic()
+{
+    bool visited[vertices];
+    bool recStack[vertices];
+    for (int i=0 ; i<vertices ; i++) {
+        visited[i] = false;
+        recStack[i] = false;
+    }
+    for (int i=0 ; i<vertices ; i++) {
+        if (isCyclic(i, visited, recStack)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void createGenericGraph(Graph g, bool cyclic) {
     g.addEdge(0, 1);
     g.addEdge(0, 2);
@@ -71,4 +104,3 @@ void createGenericGraph(Graph g, bool cyclic) {
     }
     g.addEdge(2, 3);
 }
-
