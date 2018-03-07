@@ -45,6 +45,7 @@ void Graph::BFS(int source) {
         visited[i] = false;
     }
     bfsQueue.push(source);
+    cout<<endl;
     while(!bfsQueue.empty()) {
         int front = bfsQueue.front();
         bfsQueue.pop();
@@ -59,5 +60,15 @@ void Graph::BFS(int source) {
 
     }
     cout<<endl;
+}
+
+void createGenericGraph(Graph g, bool cyclic) {
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 2);
+    if (cyclic) {
+        g.addEdge(2, 0);
+    }
+    g.addEdge(2, 3);
 }
 

@@ -18,3 +18,5 @@ public:
     void performDFS(int source, bool visited[]);
 
 };
+
+void createGenericGraph(Graph, bool);
